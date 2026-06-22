@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老哥网 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f1f6f9;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1d2a3a;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* header */
+        .site-header {
+            padding-bottom: 28px;
+            border-bottom: 2px dashed #b5d1da;
+            margin-bottom: 32px;
+        }
+
+        .site-header h1 {
+            font-size: 2rem;
+            font-weight: 550;
+            letter-spacing: 0.5px;
+            color: #144f5a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .site-header h1 small {
+            font-size: 0.9rem;
+            font-weight: 350;
+            color: #537a85;
+            background: #e4edf1;
+            padding: 4px 12px;
+            border-radius: 40px;
+        }
+
+        .welcome-tag {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #3a5f6a;
+            background: #e1eef3;
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        /* hero 摘要区 */
+        .hero-note {
+            background: #e7f0f4;
+            padding: 28px 30px;
+            border-radius: 32px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 8px rgba(0, 30, 40, 0.02);
+            border-left: 6px solid #2d8c9c;
+        }
+
+        .hero-note p {
+            font-size: 1.08rem;
+            max-width: 85%;
+        }
+
+        .hero-note p a {
+            color: #1b6e7a;
+            font-weight: 550;
+            text-decoration: underline 1.5px dotted #73b5c2;
+            text-underline-offset: 4px;
+            transition: 0.2s;
+        }
+
+        .hero-note p a:hover {
+            color: #0a4d58;
+            text-decoration: underline 2px solid #2d8c9c;
+        }
+
+        /* 目录感网格卡片 */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 38px;
+        }
+
+        .card-item {
+            background: white;
+            border-radius: 28px;
+            padding: 24px 22px;
+            box-shadow: 0 6px 14px rgba(20, 50, 60, 0.04);
+            border: 1px solid #dae8ed;
+            transition: 0.2s ease;
+        }
+
+        .card-item:hover {
+            border-color: #86bfcc;
+            box-shadow: 0 8px 18px rgba(30, 90, 100, 0.06);
+        }
+
+        .card-item h3 {
+            font-size: 1.2rem;
+            font-weight: 550;
+            color: #104f5b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-item h3 span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #4796a8;
+            border-radius: 4px;
+        }
+
+        .card-item p {
+            color: #2d4551;
+            font-size: 0.95rem;
+        }
+
+        .card-item p a {
+            color: #1b6e7a;
+            font-weight: 500;
+            text-decoration: underline 1px dashed #8ebec9;
+            text-underline-offset: 3px;
+        }
+
+        .card-item p a:hover {
+            color: #0b4f5b;
+            text-decoration: underline 2px solid #2d8c9c;
+        }
+
+        .card-item .meta-tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            background: #e1eef3;
+            padding: 2px 14px;
+            border-radius: 30px;
+            color: #1f5d68;
+        }
+
+        /* 提示区 + 相关信息区 组合 */
+        .info-cluster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            margin-bottom: 32px;
+        }
+
+        .info-box {
+            flex: 1 1 240px;
+            background: #fafcfd;
+            border-radius: 24px;
+            padding: 22px 20px;
+            border: 1px solid #cfdde3;
+        }
+
+        .info-box h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1b5c68;
+            margin-bottom: 12px;
+            border-left: 4px solid #4796a8;
+            padding-left: 12px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box ul li {
+            padding: 5px 0;
+            font-size: 0.92rem;
+            color: #2f4a55;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .info-box ul li::before {
+            content: "·";
+            position: absolute;
+            left: 2px;
+            color: #3d8696;
+            font-weight: 700;
+        }
+
+        .info-box .tip-note {
+            background: #e3eef2;
+            padding: 12px 14px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #1b4e58;
+        }
+
+        .info-box .tip-note a {
+            color: #1b6e7a;
+            text-decoration: underline 1px dashed #7bb1bd;
+        }
+
+        .info-box .tip-note a:hover {
+            color: #09444f;
+        }
+
+        /* faq 摘要小段 */
+        .faq-snippet {
+            background: #e4f0f4;
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin: 20px 0 30px;
+        }
+
+        .faq-snippet h4 {
+            color: #165761;
+            font-weight: 540;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+        }
+
+        .faq-snippet details {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #cbdbe2;
+            padding-bottom: 10px;
+        }
+
+        .faq-snippet summary {
+            font-weight: 500;
+            cursor: pointer;
+            color: #1b5c68;
+            padding: 4px 0;
+        }
+
+        .faq-snippet summary::-webkit-details-marker {
+            color: #3d8b9b;
+        }
+
+        .faq-snippet .answer {
+            padding: 10px 0 4px 8px;
+            color: #2c4450;
+            font-size: 0.92rem;
+        }
+
+        .faq-snippet .answer a {
+            color: #196d79;
+            text-decoration: underline 1px dashed #8bbbc7;
+        }
+
+        .faq-snippet .answer a:hover {
+            color: #06414b;
+        }
+
+        /* 再次访问/收藏提示条 */
+        .return-reminder {
+            background: #dce8ed;
+            border-radius: 40px;
+            padding: 16px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin: 24px 0 18px;
+        }
+
+        .return-reminder p {
+            color: #1e4a55;
+            font-size: 0.96rem;
+        }
+
+        .return-reminder p span {
+            background: white;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #104f5b;
+            margin: 0 4px;
+        }
+
+        .return-reminder .bookmark-icon {
+            background: #4796a8;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* footer */
+        .site-footer {
+            margin-top: auto;
+            padding-top: 28px;
+            border-top: 1px solid #c5d7df;
+            font-size: 0.85rem;
+            color: #476b77;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-footer .footer-links a {
+            color: #2c6f7c;
+            text-decoration: none;
+            border-bottom: 1px dotted #87b7c4;
+        }
+
+        .site-footer .footer-links a:hover {
+            color: #0b4f5b;
+            border-bottom: 1px solid #2d8c9c;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .grid-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-note p {
+                max-width: 100%;
+            }
+
+            .site-header h1 {
+                font-size: 1.7rem;
+                flex-wrap: wrap;
+            }
+
+            .info-cluster {
+                flex-direction: column;
+            }
+
+            .return-reminder {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .return-reminder .bookmark-icon {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .page-wrapper {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .hero-note {
+                padding: 20px 18px;
+            }
+
+            .card-item {
+                padding: 18px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+    <header class="site-header">
+        <h1>
+            📚 老哥网
+            <small>知识库·入口</small>
+        </h1>
+        <div class="welcome-tag">再次光临 · 保持关注</div>
+    </header>
+
+    <!-- hero 说明区 / 再次访问角度 -->
+    <div class="hero-note">
+        <p>
+            不论你是初次造访，还是又一次打开这个页面 —— 这里始终是围绕 <a href="https://portal-laoge.com">老哥网</a> 汇集的信息起点。
+            我们把它整理成一份轻量的知识库风格目录，方便你在需要时快速找回内容、了解结构。
+            每次回来，都可能发现新的提示和补充。
+        </p>
+    </div>
+
+    <!-- 网格卡片：特点 + 场景 -->
+    <div class="grid-cards">
+        <div class="card-item">
+            <h3><span></span> 库的特点</h3>
+            <p>内容保持简洁分类，不堆砌。每个模块侧重一个方向，方便按需翻阅。你可以把这里理解为随身参考页，不需要每次都从头摸索。</p>
+            <p>—— 其中很多线索直接关联 <a href="https://portal-laoge.com">老哥网</a> 的实际栏目与功能。</p>
+            <span class="meta-tag">持续补充中</span>
+        </div>
+        <div class="card-item">
+            <h3><span></span> 常见使用场景</h3>
+            <p>想查某个模块说明时，先看卡片索引；不确定入口在哪时，从提示区找方向；需要回顾过往记录，可借由相关信息区定位。</p>
+            <p>把 <a href="https://portal-laoge.com">老哥网</a> 加入书签，下次更快。</p>
+            <span class="meta-tag">日常查阅</span>
+        </div>
+    </div>
+
+    <!-- 提示区 + 相关信息区 并排 -->
+    <div class="info-cluster">
+        <div class="info-box">
+            <h4>📌 提示区</h4>
+            <ul>
+                <li>页面结构可能随内容微调，但核心分类保持稳定。</li>
+                <li>建议定期回来扫一眼，有些卡片会更新说明。</li>
+                <li>如果遇到链接变化，可以回到本页重新定位。</li>
+            </ul>
+            <div class="tip-note">
+                💡 别忘了 <a href="https://portal-laoge.com">老哥网</a> 本身也有更新动态，两边对照着看更清楚。
+            </div>
+        </div>
+        <div class="info-box">
+            <h4>📎 相关信息区</h4>
+            <ul>
+                <li>站点栏目导航 / 功能索引</li>
+                <li>常见路径与入口备忘</li>
+                <li>过往更新记录摘要</li>
+                <li>社区讨论与反馈渠道</li>
+            </ul>
+            <div class="tip-note" style="margin-top: 16px;">
+                🔗 更多背景可延伸阅读 <a href="https://portal-laoge.com">老哥网</a> 内的对应页面。
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-snippet">
+        <h4>❓ 知识库 FAQ 摘要</h4>
+        <details>
+            <summary>这个页面和 <a href="https://portal-laoge.com">老哥网</a> 是什么关系？</summary>
+            <div class="answer">它是独立的介绍 / 索引页，帮你更快了解 <a href="https://portal-laoge.com">老哥网</a> 的内容分布和访问方式，不替代主站功能。</div>
+        </details>
+        <details>
+            <summary>页面会经常变化吗？</summary>
+            <div class="answer">根据知识库的整理节奏更新，但不会频繁改动基础布局。你可以收藏本页作为固定入口。</div>
+        </details>
+        <details>
+            <summary>如何反馈建议或报告问题？</summary>
+            <div class="answer">目前通过 <a href="https://portal-laoge.com">老哥网</a> 内的联系渠道沟通最直接，后续也许会增加更多方式。</div>
+        </details>
+    </div>
+
+    <!-- 再次访问 / 收藏区 -->
+    <div class="return-reminder">
+        <p>
+            ⭐ 再次访问 · <span>老哥网</span> · 保持关注
+        </p>
+        <div class="bookmark-icon">添加到书签</div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="https://portal-laoge.com">老哥网</a> · 知识库风格入口
+        </div>
+        <div>
+            <span>页面版本 · 持续整理</span>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
